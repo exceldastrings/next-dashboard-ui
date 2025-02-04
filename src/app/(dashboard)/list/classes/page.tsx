@@ -1,9 +1,9 @@
+import FormModel from "@/components/FormModel";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
-import { classesData, role, } from "@/lib/data";
+import { classesData, role } from "@/lib/data";
 import Image from "next/image";
-import Link from "next/link";
 
 type Class = {
   id: number;
@@ -51,15 +51,11 @@ const ClassListPage = () => {
       <td className="hidden md:table-cell">{item.supervisor}</td>
       <td>
         <div className="flex item-center gap-2">
-          <Link href={`/list/Parents/${item.id}`}>
-            <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaSky">
-              <Image src="/edit.png" alt="" width={16} height={16} />
-            </button>
-          </Link>
           {role == "admin" && (
-            <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamapurple">
-              <Image src="/delete.png" alt="" width={16} height={16} />
-            </button>
+            <>
+              <FormModel table="class" type="update" data={item} />
+              <FormModel table="class" type="delete" id={item.id} />
+            </>
           )}
         </div>
       </td>
@@ -80,11 +76,7 @@ const ClassListPage = () => {
             <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow">
               <Image src="/sort.png" alt="" width={16} height={16} />
             </button>
-            {role == "admin" && (
-              <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow">
-                <Image src="/plus.png" alt="" width={16} height={16} />
-              </button>
-            )}
+            {role == "admin" && <FormModel table="class" type="create" />}
           </div>
         </div>
       </div>

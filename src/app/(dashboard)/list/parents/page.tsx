@@ -1,3 +1,4 @@
+import FormModel from "@/components/FormModel";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import TableSearch from "@/components/TableSearch";
@@ -57,15 +58,11 @@ const ParentListPage = () => {
       <td className="hidden md:table-cell">{item.address}</td>
       <td>
         <div className="flex item-center gap-2">
-          <Link href={`/list/Parents/${item.id}`}>
-            <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaSky">
-              <Image src="/edit.png" alt="" width={16} height={16} />
-            </button>
-          </Link>
           {role == "admin" && (
-            <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamapurple">
-              <Image src="/delete.png" alt="" width={16} height={16} />
-            </button>
+            <>
+              <FormModel table="parent" type="update" data={item} />
+              <FormModel table="parent" type="delete" id={item.id} />
+            </>
           )}
         </div>
       </td>
@@ -87,9 +84,7 @@ const ParentListPage = () => {
               <Image src="/sort.png" alt="" width={16} height={16} />
             </button>
             {role == "admin" && (
-              <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow">
-                <Image src="/plus.png" alt="" width={16} height={16} />
-              </button>
+              <FormModel table="parent" type="create" />
             )}
           </div>
         </div>
